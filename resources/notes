@@ -1,0 +1,479 @@
+EDA
+    descriptive statistics
+    missing values
+    class distribution
+    detect outliers
+
+Pre-processing
+    handle missing values
+    handling outliers
+    drop duplicate records
+
+Feature selection
+    correlation statistics
+    Chi-Squared Statistic.
+    Mutual Information Statistic.
+    https://machinelearningmastery.com/feature-selection-with-real-and-categorical-data/
+
+
+spot check algorithms - after train test split
+feature selection - after train test split
+after feature selection  - train n test d models
+u hv to train & test d model on selected features from feature selection
+test on both original n synthetic data
+
+
+
+* class distributions of the original & synthetic datasets are almost equal
+* feature distributions of the original & synthetic datasets are almost equal; except for degree of diffe - box plot
+
+
+
+
+data and remaining 30% records are considered as test data. The classification models are generated
+and tested by using 10-fold cross validation on training and test datasets with various classifiers like
+AdaBoost (AB), decision tree (DT), extra tree (ET), GradientBoost (GB), K-nearest neighbor (KNN),
+logistic regression (LR), Naïve Bayes (NB) and random forest (RF). - symmetry 2020
+
+statistical significance of algorithms - post hoc analysis using SPSS
+
+hc -
+manual heirarchy deducing
+automated feature selection
+
+drawback - when a group has many minority classes then the performance might get degraded for individual primary tumor
+locations
+scalability
+
+
+
+
+
+
+
+
+
+
+I can use Pandas's corr() to get correlation between numerical variables and the response variables(House Prices).
+How to measure the correlation between categorical variables and the response variable? How can I determine if a
+categorical variable is highly correlated to the response variable?
+
+How to find the correlation/association between categorical variables and the target(continuous) variable?
+
+Calculates Theil's U statistic (Uncertainty coefficient) for categorical-categorical association. This is the uncertainty
+of x given y: value is on the range of [0,1] - where 0 means y provides no information about x, and 1 means
+y provides full information about x.
+
+
+ * Pearson's R for continuous-continuous cases
+ * Correlation Ratio for categorical-continuous cases
+ * Cramer's V or Theil's U for categorical-categorical cases
+
+associations() - **Returns:** a DataFrame of the correlation/strength-of-association between all features
+
+
+
+
+
+
+
+I tried class weights methods and my accuracy increased by 4-5%. Is there anything else I can try along with this to improve
+accuracy.Let me just give you brief intro about my data.
+Data:
+It is multi class classification problem with 80 classes, with data size of 7000 rows and 2 columns with feature and Label
+where feature contain only text. Data is highly imbalanced data such that 25 classes occurred only once.currently I am
+getting accuracy of 70% on my training data using train test split and 60% on my actual testing data.
+If possible can you provide your suggestions to improve model.
+
+
+Usually, model accuracy will not be considered as model evaluation metric on imbalanced data. This is because the model
+will be biased towards learning the predominant class and would perform well on predicting the predominant class. Hence,
+the regular accuracy score will definitely be high. In such cases, you have to look out for F-measure as evaluation metric
+and optimize area under the roc curve. To improve the model's performance, you can try tuning model parameters using several
+parameter values against f-measure score and identify the right parameter values that contribute to high f-measure.
+
+class-weights
+https://www.kaggle.com/questions-and-answers/93669#538906 - ***********
+
+
+
+I recommend you the use of a binarization technique. You can proceed by transforming the original multi-class problem
+into binary subsets, which are easier to discriminate, via a class binarization technique (one-vs-one OVO and one-vs-all OVA).
+You can find more details in: A. Fernández, V. López, M. Galar, M.J. del Jesus, F. Herrera. Analysing the classification
+of imbalanced data-sets with multiple classes: Binarization techniques and ad-hoc  approaches. Knowledge-Based Systems 42 (2013) 97–110
+
+SMOTE will oversample the data by adding instances to the class that has low instance number (i.e., applying this process
+to all the classes one-by-one, starting with the class that has the lowest instance number at each runtime, which makes
+this process not a trivial one. For this reason, I suggested the use of "SpreadSubsample" technique. On the other hand,
+ClassBalancer is a very good method, and probably will produce useful results when applying it on the data and performing
+classification, later on.
+https://www.researchgate.net/post/how_to_use_SMOTE_with_multi-class_data_set
+
+
+
+
+
+For generating synthetic data, the mixture of Gaussian (GMM model) will be good option I think. Because in most of the
+experiments, the synthetic data are generated from this method. I don't know if GMM model meets your requirements or not.
+https://www.researchgate.net/post/How_to_Generate_Synthetic_Dataset_in_MOA_tool_And_how_to_balance_class_without_externally_added_SMOTE_algorithm_in_tool
+
+http://www.blackarbs.com/blog/synthetic-data-generation-part-1-block-bootstrapping - synthetic long code
+
+
+
+ # header = ['age', 'sex', 'degree-of-diffe', 'bone', 'bone-marrow', 'lung', 'pleura', 'peritoneum',
+    #           'liver', 'brain', 'skin', 'neck', 'supraclavicular', 'axillar', 'mediastinum', 'abdominal',
+    #           'histo_2', 'histo_3']
+
+
+
+ # columns = ['age', 'sex', 'histologic-type', 'degree-of-diffe', 'bone', 'bone-marrow', 'lung', 'pleura', 'peritoneum',
+    #            'liver', 'brain', 'skin', 'neck', 'supraclavicular', 'axillar', 'mediastinum', 'abdominal', 'region']
+
+
+
+
+#
+    # header = ['age', 'sex', 'degree-of-diffe', 'bone', 'bone-marrow', 'lung', 'pleura', 'peritoneum',
+    #           'liver', 'brain', 'skin', 'neck', 'supraclavicular', 'axillar', 'mediastinum', 'abdominal',
+    #           'histo_2', 'histo_3']
+
+
+
+
+
+    # def visualizeDecisionTree():
+    #     data = export_graphviz(model, out_file=None, feature_names=header, class_names=['1', '2', '3', '4'],
+    #                            filled=True, rounded=True,
+    #                            special_characters=True)
+    #     graph = graphviz.Source(data, filename="test.gv", format="png")
+    #     graph.view()
+
+
+    # visualizeDecisionTree()
+
+
+
+
+
+    # # replace 2 value of each specified column with 0
+# def make_boolean(data_frame):
+#     cols_to_replace = ['sex', 'bone', 'bone-marrow', 'lung', 'pleura', 'peritoneum', 'liver', 'brain', 'skin', 'neck',
+#                        'supraclavicular', 'axillar', 'mediastinum', 'abdominal']
+#
+#     for col in cols_to_replace:
+#         data_frame[col].replace('2', '0', inplace=True)
+#     print(data_frame.head())
+
+
+
+
+
+
+
+
+
+ # https://towardsdatascience.com/feature-selection-with-pandas-e3690ad8504b
+    # no of features
+    nof_list = np.arange(2, 18)
+    high_score = 0
+    # Variable to store the optimum features
+    nof = 0
+    score_list = []
+    for n in range(len(nof_list)):
+        # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
+        model = model
+        rfe = RFE(model, nof_list[n])
+        X_train_rfe = rfe.fit_transform(X_train, y_train)
+        X_test_rfe = rfe.transform(X_test)
+        model.fit(X_train_rfe, y_train)
+        score = model.score(X_test_rfe, y_test)
+        if(len(score_list) != 0):
+            if (score > max(score_list)):
+                high_score = score
+                nof = nof_list[n]
+        else:
+            score_list.append(score)
+    print("Optimum number of features: %d" % nof)
+    print("Score with %d features: %f" % (nof, high_score))
+
+
+
+
+
+
+
+
+
+
+
+sel_chi2 = SelectKBest(chi2, k='all')  # chi 10 - 0.64, 0.63, 0.60
+    X_train_chi2 = sel_chi2.fit_transform(X_resampled, y_resampled)
+    X_test_chi2 = sel_chi2.transform(X_test)
+
+
+
+
+
+
+
+
+
+#
+# def make_datasets(data_frame, train=True):
+#     upper_region_instances = []
+#     thoracic_region_instances = []
+#     intra_peritoneum_instances = []
+#     extra_peritoneum_instances = []
+#
+#     column = data_frame['class']
+#     length = len(column)
+#
+#     for row in range(length):
+#         value = column[row]
+#         if ( value == '2' or value == '4' or value == '10' ):
+#             record = data_frame.values[row]
+#             upper_region_instances.append(record)
+#         elif( value == '1' or value == '22' ):
+#             record = data_frame.values[row]
+#             thoracic_region_instances.append(record)
+#         elif( value == '3' or value == '5' or value == '6' or value == '7' or value == '11' or value == '12' or
+#               value == '13' ):
+#             record = data_frame.values[row]
+#             intra_peritoneum_instances.append(record)
+#         elif( value == '8' or value == '14' or value == '15' or value == '16' or value == '17' or value == '18' or
+#                         value == '19' or value == '20' or value == '21' ):
+#             record = data_frame.values[row]
+#             extra_peritoneum_instances.append(record)
+#
+#
+#     upper_region_dataframe = pd.DataFrame(upper_region_instances)
+#     thoracic_region_dataframe = pd.DataFrame(thoracic_region_instances)
+#     intra_peritoneum_region_dataframe = pd.DataFrame(intra_peritoneum_instances)
+#     extra_peritoneum_region_dataframe = pd.DataFrame(extra_peritoneum_instances)
+#
+#     # header = ['age', 'sex', 'histologic-type', 'degree-of-diffe', 'bone', 'bone-marrow', 'lung', 'pleura',
+#     #           'peritoneum',
+#     #           'liver', 'brain', 'skin', 'neck', 'supraclavicular', 'axillar', 'mediastinum', 'abdominal', 'region'
+#     #           'class']
+#
+#     # Create training datasets containing training feature & training labels
+#     if(train):
+#         upper_region_dataframe.to_csv('../resources/datasets/ur_training_set.csv', header=data_frame.columns, index=False)
+#         thoracic_region_dataframe.to_csv('../resources/datasets/tr_training_set.csv', header=data_frame.columns, index=False)
+#         intra_peritoneum_region_dataframe.to_csv('../resources/datasets/ip_training_set.csv', header=data_frame.columns, index=False)
+#         extra_peritoneum_region_dataframe.to_csv('../resources/datasets/ep_training_set.csv', header=data_frame.columns, index=False)
+#     elif(train == False):
+#         # Create test datasets containing testing feature & testing labels
+#         upper_region_dataframe.to_csv('../resources/datasets/ur_testing_set.csv', header=data_frame.columns, index=False)
+#         thoracic_region_dataframe.to_csv('../resources/datasets/tr_testing_set.csv', header=data_frame.columns, index=False)
+#         intra_peritoneum_region_dataframe.to_csv('../resources/datasets/ip_testing_set.csv', header=data_frame.columns, index=False)
+#         extra_peritoneum_region_dataframe.to_csv('../resources/datasets/ep_testing_set.csv', header=data_frame.columns, index=False)
+
+
+
+
+
+
+
+
+
+
+
+
+def make_datasets(dataframe):
+    # upper_region_instances = []
+    # thoracic_region_instances = []
+    # intra_peritoneum_instances = []
+    # extra_peritoneum_instances = []
+    #
+    # column = dataframe['class']
+    # length = len(column)
+    #
+    # for row in range(length):
+    #     value = column[row]
+    #     if ( value == '2' or value == '4' or value == '10' ):
+    #         record = dataframe.values[row]
+    #         upper_region_instances.append(record)
+    #     elif( value == '1' or value == '22' ):
+    #         record = dataframe.values[row]
+    #         thoracic_region_instances.append(record)
+    #     elif( value == '3' or value == '5' or value == '6' or value == '7' or value == '11' or value == '12' or
+    #           value == '13' ):
+    #         record = dataframe.values[row]
+    #         intra_peritoneum_instances.append(record)
+    #     elif( value == '8' or value == '14' or value == '15' or value == '16' or value == '17' or value == '18' or
+    #                     value == '19' or value == '20' or value == '21' ):
+    #         record = dataframe.values[row]
+    #         extra_peritoneum_instances.append(record)
+    #
+    #
+    # upper_region_dataframe = pd.DataFrame(upper_region_instances)
+    # thoracic_region_dataframe = pd.DataFrame(thoracic_region_instances)
+    # intra_peritoneum_region_dataframe = pd.DataFrame(intra_peritoneum_instances)
+    # extra_peritoneum_region_dataframe = pd.DataFrame(extra_peritoneum_instances)
+    #
+    # header = ['age', 'sex', 'histologic-type', 'degree-of-diffe', 'bone', 'bone-marrow', 'lung', 'pleura', 'peritoneum',
+    #           'liver', 'brain', 'skin', 'neck', 'supraclavicular', 'axillar', 'mediastinum', 'abdominal', 'region', 'class', 'small-intestine']
+    #
+    # upper_region_dataframe.to_csv('../resources/datasets/upper_region.csv', header=header, index=False)
+    # thoracic_region_dataframe.to_csv('../resources/datasets/thoracic_region.csv', header=header, index=False)
+    # intra_peritoneum_region_dataframe.to_csv('../resources/datasets/intra_peritoneum_region.csv', header=header, index=False)
+    # extra_peritoneum_region_dataframe.to_csv('../resources/datasets/extra_peritoneum_region.csv', header=header, index=False)
+
+
+    # Creates datasets for the second level sub classifiers
+
+        # # Remove all classes with only 1 instance
+        # class_filter = data_frame.groupby(SECOND_LEVEL_TARGET)
+        # data_frame = class_filter.filter(lambda x: len(x) > 1)
+        # print("2nd Level - Class Count", data_frame.groupby(SECOND_LEVEL_TARGET).size())
+
+
+    # Filter out the instances according to their regions
+    # To  ensure that each sub classifier is trained and tested only on its child classes
+    upper_region_dataframe = data_frame[data_frame[SECOND_LEVEL_TARGET].isin(UR_CLASSES)]
+    thoracic_region_dataframe = data_frame[data_frame[SECOND_LEVEL_TARGET].isin(TR_CLASSES)]
+    intra_peritoneum_region_dataframe = data_frame[data_frame[SECOND_LEVEL_TARGET].isin(IP_CLASSES)]
+    extra_peritoneum_region_dataframe = data_frame[data_frame[SECOND_LEVEL_TARGET].isin(EP_CLASSES)]
+
+
+    # Write datasets to separate file
+    upper_region_dataframe.to_csv(DATA_DIRECTORY_PATH + 'upper_region.csv', index=False)
+    thoracic_region_dataframe.to_csv(DATA_DIRECTORY_PATH + 'thoracic_region.csv', index=False)
+    intra_peritoneum_region_dataframe.to_csv(DATA_DIRECTORY_PATH + 'intra_peritoneum_region.csv', index=False)
+    extra_peritoneum_region_dataframe.to_csv(DATA_DIRECTORY_PATH + 'extra_peritoneum_region.csv', index=False)
+
+
+
+
+
+
+# @app.route('/predict_ur_organ', methods=['GET', 'POST'])
+# def predict_upper_region_organ():
+#     if request.method == 'POST':
+#         # Get the values of keys
+#         post_data = request.form
+#         age = post_data['age']
+#         degree = post_data['degree-of-diffe']
+#         small_intestine = post_data['small-intestine']
+#         sex = post_data['sex_2']
+#         histo_type_2 = post_data['histologic-type']
+#         bone = post_data['bone_2']
+#         bone_marrow = post_data['bone-marrow_2']
+#         lung = post_data['lung_2']
+#         pleura = post_data['pleura_2']
+#         peritoneum = post_data['peritoneum_2']
+#         liver = post_data['liver_2']
+#         brain = post_data['brain_2']
+#         skin = post_data['skin_2']
+#         neck = post_data['neck_2']
+#         supraclavicular = post_data['supraclavicular_2']
+#         axillar = post_data['axillar_2']
+#         mediastinum = post_data['mediastinum_2']
+#         abdominal = post_data['abdominal_2']
+#
+#         # Upper region Columns[
+#         #     'age', 'sex', 'histologic-type', 'degree-of-diffe', 'bone', 'bone-marrow', 'lung', 'pleura', 'peritoneum',
+#         #     'liver', 'brain', 'skin', 'neck', 'supraclavicular', 'axillar', 'mediastinum', 'abdominal', 'small-intestine']
+#
+#
+#         # New instance
+#         new_data = np.array([[
+#             int(age), int(sex), int(histo_type_2), int(degree), int(bone), int(bone_marrow), int(lung), int(pleura),
+#             int(peritoneum), int(liver), int(brain), int(skin), int(neck), int(supraclavicular), int(axillar),
+#             int(mediastinum), int(abdominal), int(small_intestine)
+#         ]])
+#
+#
+#         # Make Predictions using the pre-trained model
+#         model = joblib.load(open('resources/models/URModel.pkl', 'rb'))
+#         class_prediced = int(model.predict(new_data))
+#         return jsonify(class_prediced)
+#
+#
+#
+#
+#
+# @app.route('/predict_tr_organ', methods=['GET', 'POST'])
+# def predict_thoracic_region_organ():
+#     if request.method == 'POST':
+#         # Get the values of keys
+#         post_data = request.form
+#         age = post_data['age']
+#         degree = post_data['degree-of-diffe']
+#         small_intestine = post_data['small-intestine']
+#         sex = post_data['sex_2']
+#         histo_type_2 = post_data['histologic-type']
+#         bone = post_data['bone_2']
+#         bone_marrow = post_data['bone-marrow_2']
+#         lung = post_data['lung_2']
+#         pleura = post_data['pleura_2']
+#         peritoneum = post_data['peritoneum_2']
+#         liver = post_data['liver_2']
+#         brain = post_data['brain_2']
+#         skin = post_data['skin_2']
+#         neck = post_data['neck_2']
+#         supraclavicular = post_data['supraclavicular_2']
+#         axillar = post_data['axillar_2']
+#         mediastinum = post_data['mediastinum_2']
+#         abdominal = post_data['abdominal_2']
+#
+#         # Thoracic region Columns[
+#         # 'age', 'sex', 'histologic-type', 'degree-of-diffe', 'bone', 'bone-marrow', 'lung', 'pleura', 'peritoneum',
+#         # 'liver', 'brain', 'skin', 'neck', 'supraclavicular', 'axillar', 'mediastinum', 'abdominal', 'small-intestine']
+#
+#         # New instance
+#         new_data = np.array([[
+#             int(age), int(sex), int(histo_type_2), int(degree), int(bone), int(bone_marrow), int(lung), int(pleura),
+#             int(peritoneum), int(liver), int(brain), int(skin), int(neck), int(supraclavicular), int(axillar),
+#             int(mediastinum), int(abdominal), int(small_intestine)
+#         ]])
+#
+#         # Make Predictions using the pre-trained model
+#         model = joblib.load(open('resources/models/TRModel.pkl', 'rb'))
+#         class_prediced = int(model.predict(new_data))
+#         return jsonify(class_prediced)
+#
+#
+#
+#
+# @app.route('/predict_ip_organ', methods=['GET', 'POST'])
+# def predict_intraperitoneal_region_organ():
+#     if request.method == 'POST':
+#         # Get the values of keys
+#         post_data = request.form
+#         age = post_data['age']
+#         degree = post_data['degree-of-diffe']
+#         small_intestine = post_data['small-intestine']
+#         sex = post_data['sex_2']
+#         histo_type_2 = post_data['histologic-type']
+#         bone = post_data['bone_2']
+#         bone_marrow = post_data['bone-marrow_2']
+#         lung = post_data['lung_2']
+#         pleura = post_data['pleura_2']
+#         peritoneum = post_data['peritoneum_2']
+#         liver = post_data['liver_2']
+#         brain = post_data['brain_2']
+#         skin = post_data['skin_2']
+#         neck = post_data['neck_2']
+#         supraclavicular = post_data['supraclavicular_2']
+#         axillar = post_data['axillar_2']
+#         mediastinum = post_data['mediastinum_2']
+#         abdominal = post_data['abdominal_2']
+#
+#         # Intraperitoneal region Columns[
+#         # 'age', 'sex', 'histologic-type', 'degree-of-diffe', 'bone', 'bone-marrow', 'lung', 'pleura', 'peritoneum',
+#         # 'liver', 'brain', 'skin', 'neck', 'supraclavicular', 'axillar', 'mediastinum', 'abdominal', 'small-intestine']
+#
+#         # New instance
+#         new_data = np.array([[
+#             int(age), int(sex), int(histo_type_2), int(degree), int(bone), int(bone_marrow), int(lung), int(pleura),
+#             int(peritoneum), int(liver), int(brain), int(skin), int(neck), int(supraclavicular), int(axillar),
+#             int(mediastinum), int(abdominal), int(small_intestine)
+#         ]])
+#
+#         # Make Predictions using the pre-trained model
+#         model = joblib.load(open('resources/models/IPRModel.pkl', 'rb'))
+#         class_prediced = int(model.predict(new_data))
+#         return jsonify(class_prediced)

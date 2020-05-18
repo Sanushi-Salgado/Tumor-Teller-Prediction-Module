@@ -1,0 +1,16 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="p2_preprocessing.data_cleansing.check_duplicates" />
+          <option value="p3_classification.main.yellowbrick" />
+          <option value="p3_classification.main.ClassificationReport" />
+          <option value="p3_classification.hc.prince" />
+          <option value="prince" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
